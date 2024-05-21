@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Bar Chart</title>
+
+    <style> 
+    canvas {
+        border: 1px solid #ccc;
+        margin-top: 10px;
+    }
+    </style>
+</head>
+<body>
+    <h2>Fruit Sales Bar Chart</h2>
+
+    <canvas id="chart" width="1000" height="700"></canvas>
+
+    <script> 
+        var canvas = document.getElementById("chart");
+        var ctx = canvas.getContext("2d");
+
+        var fruits = [
+            {name:"Apple", quantity:20, color:"red"},
+            {name:"Orange", quantity:10, color:"orange"},
+            {name:"Kiwi", quantity:5, color:"green"},
+            {name:"Blueberry", quantity:5, color:"blue"},
+            {name:"Grapes", quantity:10, color:"purple"}
+        ];
+
+        var barHeight = 120;
+        var barMargin = 5;
+        var maxQuantity = Math.max(...fruits.map(fruit => fruit.quantity));
+
+        ctx.font = "bold 16px Arial";
+
+        fruits.forEach(function (fruit, index) {
+            var barWidth = (fruit.quantity / maxQuantity) * (canvas.width - 50);
+            var y = 50 + index * (barHeight + barMargin); 
+            var x = 50; 
+
+            ctx.fillStyle = fruit.color;
+            ctx.fillRect(x, y, barWidth, barHeight);
+
+            ctx.fillStyle = "#000";
+            ctx.fillText(fruit.quantity + " " + fruit.name , x + 5, y + barHeight / 2 + 5);
+        });
+    </script>
+</body>
+</html>
